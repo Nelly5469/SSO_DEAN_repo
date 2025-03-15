@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Hello World"
-ls
+ls -l
 mkdir Test
 echo "Se acaba de crear el subdirectorio Test"
 cd Test
-ls
+ls -l
