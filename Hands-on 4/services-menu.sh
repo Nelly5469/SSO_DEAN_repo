@@ -1,25 +1,27 @@
 #!/bin/bash
 
-# Función para listar el contenido de un directorio
 listar_contenido() {
     read -p "Ingrese la ruta absoluta del directorio: " ruta
-    if [ -d "$ruta" ]; then
-        echo "Contenido de $ruta:"
-        ls -l "$ruta"
+    if [[ "$ruta" == /* ]]; then # Verifica si la ruta es absoluta
+        if [ -d "$ruta" ]; then
+            echo "Contenido de $ruta:"
+            ls -l "$ruta"
+        else
+            echo "La ruta especificada no es un directorio válido."
+        fi
     else
-        echo "La ruta especificada no es un directorio válido."
+        echo "Ingrese una ruta absoluta válida (debe de empezar con /)"
     fi
 }
 
-# Función para crear un archivo de texto
 crear_archivo() {
     read -p "Ingrese la cadena de texto a almacenar en el archivo: " texto
-    read -p "Ingrese el nombre del archivo (con extensión .txt): " nombre_archivo
+    read -p "Ingrese el nombre del archivo sin la extensión (ej: ingrese 'hola' para 'hola.txt'): " nombre_archivo
+    nombre_archivo="${nombre_archivo}.txt"
     echo "$texto" > "$nombre_archivo"
     echo "Se ha creado el archivo $nombre_archivo con el texto proporcionado."
 }
 
-# Función para comparar dos archivos de texto
 comparar_archivos() {
     read -p "Ingrese la ruta del primer archivo: " archivo1
     read -p "Ingrese la ruta del segundo archivo: " archivo2
@@ -35,21 +37,23 @@ comparar_archivos() {
     fi
 }
 
-# Función para mostrar uso de awk
 uso_awk() {
-    echo "Ejemplo de uso de awk:"
-    echo "Para imprimir la primera columna de un archivo, use:"
-    echo "awk '{print \$1}' nombre_archivo"
+    man -f awk
+    echo "Ejemplo de uso de awk para imprimir la última columna de un archivo:"
+    echo "awk '{print \$NF}' nombre_archivo"
+    read -p "Ingrese el nombre del archivo: " nombre_archivo
+    awk '{print $NF}' "$nombre_archivo"
 }
 
-# Función para mostrar uso de grep
 uso_grep() {
-    echo "Ejemplo de uso de grep:"
-    echo "Para buscar una cadena en un archivo, use:"
-    echo "grep 'cadena' nombre_archivo"
+    man -f grep
+    echo "Ejemplo de uso de grep para buscar recursivamente un patrón en un directorio:"
+    echo "grep -iR 'patron' 'directorio'"
+    read -p "Ingrese el patron a buscar: " patron
+    read -p "Ingrese el directorio: " directorio
+    grep -iR "$patron" "$directorio"
 }
 
-# Menú principal
 while true; do
     echo "Seleccione una opción:"
     echo "1. Listar el contenido de un directorio"
