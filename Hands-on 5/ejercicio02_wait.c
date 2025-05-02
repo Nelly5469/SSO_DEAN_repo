@@ -9,7 +9,7 @@ int main() {
     } else {
         int status;
         wait(&status);
-        printf("Proceso padre: hijo terminó con código %d\n", WEXITSTATUS(stat
+        printf("Proceso padre: hijo terminó con código %d\n", WEXITSTATUS(status));
     }
     return 0;
 }
