@@ -18,8 +18,7 @@ void *tarea(void *arg)
         (*datos->contador_global)++; // Incrementar contador compartido
         pthread_mutex_unlock(datos->mutex);
     }
-printf("Hilo %d finalizado.
-", datos->id);
+printf("Hilo %d finalizado.", datos->id);
 return NULL;
 }
 int main()
@@ -41,7 +40,6 @@ int main()
         pthread_join(hilos[i], NULL);
     }
     pthread_mutex_destroy(&mutex);
-printf("Contador final: %d
-", contador);
+printf("Contador final: %d", contador);
 return 0;
 }
